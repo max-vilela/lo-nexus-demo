@@ -1,0 +1,23 @@
+[
+  {
+    "title": "[DEMO] Parada programada de manutenção",
+    "priority": "critico",
+    "pinned": true,
+    "body": "No próximo sábado, o pátio de carregamento ficará indisponível entre 6h e 12h para manutenção preventiva.",
+    "published_at": "2026-09-25"
+  },
+  {
+    "title": "[DEMO] Nova versão do manual de segurança",
+    "priority": "atencao",
+    "pinned": false,
+    "body": "O Manual de Segurança Operacional foi atualizado para a versão 3.1. Revisão obrigatória até o fim do mês.",
+    "published_at": "2026-09-20"
+  },
+  {
+    "title": "[DEMO] Treinamento do novo portal",
+    "priority": "informativo",
+    "pinned": false,
+    "body": "Sessões de treinamento do L&O Nexus acontecem nesta semana, com os administradores de cada fazenda.",
+    "published_at": "2026-09-15"
+  }
+]

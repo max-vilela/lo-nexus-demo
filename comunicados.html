@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comunicados — L&O Nexus (demo)</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="comunicados">
+<div class="demo-banner">DEMONSTRAÇÃO — protótipo estático de front-end, sem backend, sem dados reais</div>
+<div class="app-shell">
+
+<aside class="sidebar">
+    <div class="brand">
+        <div class="brand-mark">N</div>
+        <div class="brand-name">L&amp;O Nexus<small>Operações e Inteligência</small></div>
+        <button class="collapse-toggle" aria-label="Recolher menu">⇤</button>
+    </div>
+    <nav class="nav-group">
+        <div class="nav-group-title">Portal</div>
+        <a class="nav-item" data-page="home" href="index.html"><span class="icon">🏠</span><span class="nav-label">Visão Geral</span></a>
+        <a class="nav-item" data-page="dashboards" href="dashboards.html"><span class="icon">📊</span><span class="nav-label">Dashboards</span></a>
+        <a class="nav-item" data-page="sistemas" href="sistemas.html"><span class="icon">🧩</span><span class="nav-label">Sistemas</span></a>
+        <a class="nav-item" data-page="documentos" href="documentos.html"><span class="icon">📁</span><span class="nav-label">Documentos</span></a>
+        <a class="nav-item" data-page="comunicados" href="comunicados.html"><span class="icon">📣</span><span class="nav-label">Comunicados</span></a>
+    </nav>
+    <nav class="nav-group">
+        <div class="nav-group-title">Conta</div>
+        <a class="nav-item" href="login.html"><span class="icon">🔐</span><span class="nav-label">Tela de login (mock)</span></a>
+    </nav>
+    <div class="sidebar-footer">
+        <div class="avatar">MV</div>
+        <span>Max · Operacional</span>
+    </div>
+</aside>
+
+<main class="main">
+    <div class="topbar">
+        <div class="breadcrumb"><strong>Comunicados</strong></div>
+        <div class="search-box">Buscar no portal… <kbd>/</kbd></div>
+    </div>
+
+    <div class="content">
+        <div class="page-header">
+            <h1>Comunicados</h1>
+            <p>Avisos e alertas publicados para os papéis autorizados.</p>
+        </div>
+
+        <div class="announcement-list" id="ann-list"></div>
+    </div>
+</main>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+(async function init() {
+    const list = document.getElementById('ann-list');
+    try {
+        const data = await Nexus.loadData('comunicados.json');
+        list.innerHTML = data.map(a => `
+            <div class="announcement">
+                <div class="announcement-head">
+                    ${a.pinned ? '<span class="pin">📌</span>' : ''}
+                    <span class="announcement-title">${a.title}</span>
+                    <span class="status-chip ${a.priority === 'critico' ? 'descontinuado' : a.priority === 'atencao' ? 'manutencao' : 'ativo'}" style="margin-left:auto;">
+                        ${a.priority === 'critico' ? 'Crítico' : a.priority === 'atencao' ? 'Atenção' : 'Informativo'}
+                    </span>
+                </div>
+                <div class="announcement-body">${a.body}</div>
+                <div class="announcement-date">Publicado em ${a.published_at}</div>
+            </div>
+        `).join('');
+    } catch {
+        list.innerHTML = '<div class="empty-state"><p>Não foi possível carregar os dados de demonstração.</p></div>';
+    }
+})();
+</script>
+</body>
+</html>

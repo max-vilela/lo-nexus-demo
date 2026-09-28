@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboards — L&O Nexus (demo)</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="dashboards">
+<div class="demo-banner">DEMONSTRAÇÃO — protótipo estático de front-end, sem backend, sem dados reais</div>
+<div class="app-shell">
+
+<aside class="sidebar">
+    <div class="brand">
+        <div class="brand-mark">N</div>
+        <div class="brand-name">L&amp;O Nexus<small>Operações e Inteligência</small></div>
+        <button class="collapse-toggle" aria-label="Recolher menu">⇤</button>
+    </div>
+    <nav class="nav-group">
+        <div class="nav-group-title">Portal</div>
+        <a class="nav-item" data-page="home" href="index.html"><span class="icon">🏠</span><span class="nav-label">Visão Geral</span></a>
+        <a class="nav-item" data-page="dashboards" href="dashboards.html"><span class="icon">📊</span><span class="nav-label">Dashboards</span></a>
+        <a class="nav-item" data-page="sistemas" href="sistemas.html"><span class="icon">🧩</span><span class="nav-label">Sistemas</span></a>
+        <a class="nav-item" data-page="documentos" href="documentos.html"><span class="icon">📁</span><span class="nav-label">Documentos</span></a>
+        <a class="nav-item" data-page="comunicados" href="comunicados.html"><span class="icon">📣</span><span class="nav-label">Comunicados</span></a>
+    </nav>
+    <nav class="nav-group">
+        <div class="nav-group-title">Conta</div>
+        <a class="nav-item" href="login.html"><span class="icon">🔐</span><span class="nav-label">Tela de login (mock)</span></a>
+    </nav>
+    <div class="sidebar-footer">
+        <div class="avatar">MV</div>
+        <span>Max · Operacional</span>
+    </div>
+</aside>
+
+<main class="main">
+    <div class="topbar">
+        <div class="breadcrumb"><strong>Dashboards</strong></div>
+        <div class="search-box">Buscar no portal… <kbd>/</kbd></div>
+    </div>
+
+    <div class="content">
+        <div class="page-header">
+            <h1>Dashboards</h1>
+            <p>O acesso ao conteúdo é controlado pelo Power BI. Seu login no L&amp;O Nexus não concede permissão.</p>
+        </div>
+
+        <div class="filter-bar" id="filters"></div>
+        <div class="card-grid" id="dash-grid"></div>
+    </div>
+</main>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+let allDashboards = [];
+let activeCategory = 'todas';
+
+function iconLicense(d) {
+    const label = Nexus.licenseLabel(d.required_license);
+    return label ? `<span class="license-chip">${label}</span>` : '';
+}
+
+function render() {
+    const grid = document.getElementById('dash-grid');
+    const filtered = activeCategory === 'todas'
+        ? allDashboards
+        : allDashboards.filter(d => d.category === activeCategory);
+
+    if (!filtered.length) {
+        grid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1 / -1;">
+                <div class="icon">🔎</div>
+                <h3>Nenhum dashboard nesta categoria</h3>
+                <p>Ajuste o filtro para ver outros itens.</p>
+            </div>`;
+        return;
+    }
+
+    grid.innerHTML = filtered.map(d => `
+        <div class="card" data-open="${d.id}">
+            <div class="card-thumb">${d.icon}</div>
+            <div class="card-top-row">
+                <div class="card-title">${d.title}</div>
+                <button class="favorite-btn ${Nexus.isFavorite(d.id) ? 'active' : ''}" data-fav="${d.id}" aria-label="Favoritar">
+                    ${Nexus.isFavorite(d.id) ? '★' : '☆'}
+                </button>
+            </div>
+            <div class="card-desc">${d.description}</div>
+            ${iconLicense(d)}
+            <div class="card-meta">
+                <span class="status-chip ${d.status}">${Nexus.statusLabel(d.status)}</span>
+                <span>${d.owner}</span>
+            </div>
+        </div>
+    `).join('');
+
+    grid.querySelectorAll('[data-fav]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            Nexus.toggleFavorite(btn.dataset.fav);
+            render();
+        });
+    });
+
+    grid.querySelectorAll('[data-open]').forEach(card => {
+        card.addEventListener('click', () => {
+            alert('Em um portal real, isto abriria o relatório no Power BI (com registro de acesso e verificação de licença). Nesta demonstração estática não há esse redirecionamento.');
+        });
+    });
+}
+
+function renderFilters(categories) {
+    const bar = document.getElementById('filters');
+    const cats = ['todas', ...categories];
+    bar.innerHTML = cats.map(c => `
+        <button class="chip-filter ${c === activeCategory ? 'active' : ''}" data-cat="${c}">
+            ${c === 'todas' ? 'Todas' : c}
+        </button>
+    `).join('');
+
+    bar.querySelectorAll('[data-cat]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            activeCategory = btn.dataset.cat;
+            renderFilters(categories);
+            render();
+        });
+    });
+}
+
+(async function init() {
+    try {
+        const data = await Nexus.loadData('dashboards.json');
+        allDashboards = data.map((d, idx) => ({ ...d, id: `dash-${idx}` }));
+        const categories = [...new Set(allDashboards.map(d => d.category))];
+        renderFilters(categories);
+        render();
+    } catch {
+        document.getElementById('dash-grid').innerHTML = '<div class="empty-state"><p>Não foi possível carregar os dados de demonstração.</p></div>';
+    }
+})();
+</script>
+</body>
+</html>

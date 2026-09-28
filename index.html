@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visão Geral — L&O Nexus (demo)</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="home">
+<div class="demo-banner">DEMONSTRAÇÃO — protótipo estático de front-end, sem backend, sem dados reais</div>
+<div class="app-shell">
+
+<aside class="sidebar">
+    <div class="brand">
+        <div class="brand-mark">N</div>
+        <div class="brand-name">L&amp;O Nexus<small>Operações e Inteligência</small></div>
+        <button class="collapse-toggle" aria-label="Recolher menu">⇤</button>
+    </div>
+
+    <nav class="nav-group">
+        <div class="nav-group-title">Portal</div>
+        <a class="nav-item" data-page="home" href="index.html"><span class="icon">🏠</span><span class="nav-label">Visão Geral</span></a>
+        <a class="nav-item" data-page="dashboards" href="dashboards.html"><span class="icon">📊</span><span class="nav-label">Dashboards</span></a>
+        <a class="nav-item" data-page="sistemas" href="sistemas.html"><span class="icon">🧩</span><span class="nav-label">Sistemas</span></a>
+        <a class="nav-item" data-page="documentos" href="documentos.html"><span class="icon">📁</span><span class="nav-label">Documentos</span></a>
+        <a class="nav-item" data-page="comunicados" href="comunicados.html"><span class="icon">📣</span><span class="nav-label">Comunicados</span></a>
+    </nav>
+
+    <nav class="nav-group">
+        <div class="nav-group-title">Conta</div>
+        <a class="nav-item" href="login.html"><span class="icon">🔐</span><span class="nav-label">Tela de login (mock)</span></a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <div class="avatar">MV</div>
+        <span>Max · Operacional</span>
+    </div>
+</aside>
+
+<main class="main">
+    <div class="topbar">
+        <div class="breadcrumb"><strong>Visão Geral</strong></div>
+        <div class="search-box">Buscar no portal… <kbd>/</kbd></div>
+    </div>
+
+    <div class="content">
+        <div class="page-header">
+            <h1>Bom dia, Max</h1>
+            <p>Terça-feira, 28 de setembro de 2026 — América/Cuiabá</p>
+        </div>
+
+        <div class="alert-banner critico">⚠️ <strong>[DEMO]</strong>&nbsp;Parada programada de manutenção — sábado, das 6h às 12h.</div>
+
+        <div class="indicator-grid" id="indicators"></div>
+
+        <div class="page-header" style="margin-top: 12px;">
+            <h1 style="font-size:16px;">Meus favoritos</h1>
+        </div>
+        <div class="card-grid" id="favorites-grid"></div>
+    </div>
+</main>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+const indicators = [
+    { label: 'Área colhida', value: '68', unit: '%', trend: 'up', trendText: '+5% na semana', demo: true },
+    { label: 'Tratores ativos', value: '24', unit: 'un.', trend: 'flat', trendText: 'estável', demo: true },
+    { label: 'Custo por hectare', value: 'R$ 812', unit: '', trend: 'down', trendText: '-3% no mês', demo: true },
+    { label: 'Comunicados abertos', value: '3', unit: '', trend: 'flat', trendText: 'nenhum crítico pendente', demo: true },
+];
+
+const grid = document.getElementById('indicators');
+grid.innerHTML = indicators.map(i => `
+    <div class="indicator-tile">
+        ${i.demo ? '<span class="demo-chip">DEMO</span>' : ''}
+        <div class="indicator-label">${i.label}</div>
+        <div class="indicator-value">${i.value}<span class="unit">${i.unit}</span></div>
+        <div class="indicator-trend ${i.trend}">${i.trendText}</div>
+    </div>
+`).join('');
+
+async function renderFavorites() {
+    const container = document.getElementById('favorites-grid');
+    try {
+        const dashboards = await Nexus.loadData('dashboards.json');
+        const withId = dashboards.map((d, idx) => ({ ...d, id: `dash-${idx}` }));
+        const favs = withId.filter(d => Nexus.isFavorite(d.id));
+
+        if (!favs.length) {
+            container.innerHTML = `
+                <div class="empty-state" style="grid-column: 1 / -1;">
+                    <div class="icon">☆</div>
+                    <h3>Nenhum favorito ainda</h3>
+                    <p>Favorite dashboards no catálogo para vê-los aqui.</p>
+                </div>`;
+            return;
+        }
+
+        container.innerHTML = favs.map(d => `
+            <div class="card">
+                <div class="card-thumb">${d.icon}</div>
+                <div class="card-top-row">
+                    <div class="card-title">${d.title}</div>
+                    <button class="favorite-btn active" data-fav="${d.id}">★</button>
+                </div>
+                <div class="card-desc">${d.description}</div>
+                <div class="card-meta">
+                    <span class="status-chip ${d.status}">${Nexus.statusLabel(d.status)}</span>
+                    <span>${d.category}</span>
+                </div>
+            </div>
+        `).join('');
+
+        container.querySelectorAll('[data-fav]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                Nexus.toggleFavorite(btn.dataset.fav);
+                renderFavorites();
+            });
+        });
+    } catch (err) {
+        container.innerHTML = `<div class="empty-state"><p>Não foi possível carregar os dados de demonstração.</p></div>`;
+    }
+}
+renderFavorites();
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+[
+  {
+    "title": "[DEMO] Manual de Segurança Operacional",
+    "description": "Procedimentos obrigatórios para operação de máquinas e equipamentos.",
+    "category": "Segurança",
+    "storage_type": "sharepoint",
+    "owner": "SESMT",
+    "version": "3.1",
+    "updated_at": "2026-07-15",
+    "icon": "📄"
+  },
+  {
+    "title": "[DEMO] Política de Privacidade — L&O Nexus",
+    "description": "Documento público, sem restrição de acesso Microsoft.",
+    "category": "Institucional",
+    "storage_type": "link_externo",
+    "owner": "Jurídico",
+    "version": "1.0",
+    "updated_at": "2026-08-01",
+    "icon": "📄"
+  },
+  {
+    "title": "[DEMO] Procedimento de Colheita 2026",
+    "description": "Roteiro operacional da safra corrente, por fazenda.",
+    "category": "Agrícola",
+    "storage_type": "sharepoint",
+    "owner": "Equipe Agrícola",
+    "version": "2.0",
+    "updated_at": "2026-09-05",
+    "icon": "📄"
+  },
+  {
+    "title": "[DEMO] Ficha Técnica — Fornecedor Externo",
+    "description": "Documento de fornecedor, liberado também para usuários externos.",
+    "category": "Suprimentos",
+    "storage_type": "interno",
+    "owner": "Compras",
+    "version": "1.2",
+    "updated_at": "2026-06-20",
+    "icon": "📄"
+  }
+]

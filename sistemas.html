@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistemas — L&O Nexus (demo)</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="sistemas">
+<div class="demo-banner">DEMONSTRAÇÃO — protótipo estático de front-end, sem backend, sem dados reais</div>
+<div class="app-shell">
+
+<aside class="sidebar">
+    <div class="brand">
+        <div class="brand-mark">N</div>
+        <div class="brand-name">L&amp;O Nexus<small>Operações e Inteligência</small></div>
+        <button class="collapse-toggle" aria-label="Recolher menu">⇤</button>
+    </div>
+    <nav class="nav-group">
+        <div class="nav-group-title">Portal</div>
+        <a class="nav-item" data-page="home" href="index.html"><span class="icon">🏠</span><span class="nav-label">Visão Geral</span></a>
+        <a class="nav-item" data-page="dashboards" href="dashboards.html"><span class="icon">📊</span><span class="nav-label">Dashboards</span></a>
+        <a class="nav-item" data-page="sistemas" href="sistemas.html"><span class="icon">🧩</span><span class="nav-label">Sistemas</span></a>
+        <a class="nav-item" data-page="documentos" href="documentos.html"><span class="icon">📁</span><span class="nav-label">Documentos</span></a>
+        <a class="nav-item" data-page="comunicados" href="comunicados.html"><span class="icon">📣</span><span class="nav-label">Comunicados</span></a>
+    </nav>
+    <nav class="nav-group">
+        <div class="nav-group-title">Conta</div>
+        <a class="nav-item" href="login.html"><span class="icon">🔐</span><span class="nav-label">Tela de login (mock)</span></a>
+    </nav>
+    <div class="sidebar-footer">
+        <div class="avatar">MV</div>
+        <span>Max · Operacional</span>
+    </div>
+</aside>
+
+<main class="main">
+    <div class="topbar">
+        <div class="breadcrumb"><strong>Sistemas</strong></div>
+        <div class="search-box">Buscar no portal… <kbd>/</kbd></div>
+    </div>
+
+    <div class="content">
+        <div class="page-header">
+            <h1>Central de Sistemas</h1>
+            <p>Atalhos organizados para os sistemas usados na operação.</p>
+        </div>
+
+        <div class="card-grid" id="sys-grid"></div>
+    </div>
+</main>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+const integrationLabel = {
+    atalho_externo: 'Atalho externo',
+    nova_aba: 'Abre em nova aba',
+    iframe: 'Incorporado (iframe)',
+    pendente: 'Integração pendente',
+};
+
+(async function init() {
+    const grid = document.getElementById('sys-grid');
+    try {
+        const data = await Nexus.loadData('sistemas.json');
+        grid.innerHTML = data.map((s, idx) => `
+            <div class="card" data-open="${idx}">
+                <div class="card-thumb">${s.icon}</div>
+                <div class="card-top-row">
+                    <div class="card-title">${s.title}</div>
+                </div>
+                <div class="card-desc">${s.description}</div>
+                <span class="license-chip">${integrationLabel[s.integration_type] || s.integration_type}</span>
+                <div class="card-meta">
+                    <span class="status-chip ${s.status}">${Nexus.statusLabel(s.status)}</span>
+                    <span>${s.owner}</span>
+                </div>
+            </div>
+        `).join('');
+
+        grid.querySelectorAll('[data-open]').forEach(card => {
+            card.addEventListener('click', () => {
+                alert('Em um portal real, isto abriria o sistema externo conforme a integração configurada. Nesta demonstração estática não há esse redirecionamento.');
+            });
+        });
+    } catch {
+        grid.innerHTML = '<div class="empty-state"><p>Não foi possível carregar os dados de demonstração.</p></div>';
+    }
+})();
+</script>
+</body>
+</html>

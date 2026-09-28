@@ -1,0 +1,47 @@
+[
+  {
+    "title": "[DEMO] CASE IH",
+    "description": "Portal do fabricante para diagnóstico e telemetria de máquinas agrícolas.",
+    "category": "Máquinas",
+    "status": "ativo",
+    "integration_type": "atalho_externo",
+    "owner": "Oficina Central",
+    "icon": "🔧"
+  },
+  {
+    "title": "[DEMO] Sistema Fitossanitário",
+    "description": "Registro de aplicações e monitoramento fitossanitário por talhão.",
+    "category": "Agrícola",
+    "status": "ativo",
+    "integration_type": "nova_aba",
+    "owner": "Equipe Agrícola",
+    "icon": "🌱"
+  },
+  {
+    "title": "[DEMO] Google Earth",
+    "description": "Visualização geoespacial das áreas e talhões cadastrados.",
+    "category": "Geo",
+    "status": "ativo",
+    "integration_type": "nova_aba",
+    "owner": "Planejamento",
+    "icon": "🗺️"
+  },
+  {
+    "title": "[DEMO] Power BI Service",
+    "description": "Acesso direto ao ambiente de relatórios para usuários com licença própria.",
+    "category": "BI",
+    "status": "ativo",
+    "integration_type": "atalho_externo",
+    "owner": "TI",
+    "icon": "📊"
+  },
+  {
+    "title": "[DEMO] Gestão de Pátio",
+    "description": "Fila de caminhões e status de carregamento em tempo real.",
+    "category": "Logística",
+    "status": "manutencao",
+    "integration_type": "pendente",
+    "owner": "Logística",
+    "icon": "🚛"
+  }
+]

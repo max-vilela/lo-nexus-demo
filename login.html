@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entrar — L&O Nexus (demo)</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="login">
+<div class="demo-banner">DEMONSTRAÇÃO — esta tela é apenas visual. Nenhum dado é enviado ou validado.</div>
+<div class="login-shell">
+    <div class="login-card">
+        <div class="brand">
+            <div class="brand-mark">N</div>
+            <div class="brand-name">L&amp;O Nexus</div>
+        </div>
+
+        <form id="mock-login">
+            <div class="field">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="nome@livioeoutro.com.br" autocomplete="off">
+            </div>
+            <div class="field">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" placeholder="••••••••••••" autocomplete="off">
+            </div>
+            <button type="submit" class="btn btn-brand" style="width:100%; justify-content:center;">Entrar</button>
+        </form>
+
+        <p class="login-note">
+            Esta tela reproduz apenas o visual do login do portal real (Laravel).
+            Não há autenticação, banco de dados ou envio de credenciais — nenhum campo é validado ou transmitido.
+            <br><br>
+            <a href="index.html" style="color: var(--color-brand);">← Voltar à Visão Geral</a>
+        </p>
+    </div>
+</div>
+
+<script>
+document.getElementById('mock-login').addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Demonstração apenas visual: nenhuma credencial é validada ou enviada. Redirecionando para a Visão Geral.');
+    window.location.href = 'index.html';
+});
+</script>
+</body>
+</html>
