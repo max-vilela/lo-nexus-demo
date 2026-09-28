@@ -8,88 +8,67 @@
 </head>
 <body data-page="documentos">
 <div class="demo-banner">DEMONSTRAÇÃO — protótipo estático de front-end, sem backend, sem dados reais</div>
-<div class="app-shell">
+<div class="ticker" data-ticker></div>
 
+<div class="app-shell">
 <aside class="sidebar">
     <div class="brand">
         <div class="brand-mark">N</div>
-        <div class="brand-name">L&amp;O Nexus<small>Operações e Inteligência</small></div>
-        <button class="collapse-toggle" aria-label="Recolher menu">⇤</button>
+        <div class="brand-text">L&amp;O Nexus<small>Central de sistemas da Lívio e Outro</small></div>
+    </div>
+    <div class="condo-badge">
+        <div class="label">Grupo</div>
+        <div class="name">Lívio e Outro</div>
     </div>
     <nav class="nav-group">
-        <div class="nav-group-title">Portal</div>
-        <a class="nav-item" data-page="home" href="index.html"><span class="icon">🏠</span><span class="nav-label">Visão Geral</span></a>
-        <a class="nav-item" data-page="dashboards" href="dashboards.html"><span class="icon">📊</span><span class="nav-label">Dashboards</span></a>
+        <a class="nav-item" data-page="home" href="index.html"><span class="icon">▦</span><span class="nav-label">Visão Geral</span></a>
+        <a class="nav-item" href="#"><span class="icon">☆</span><span class="nav-label">Favoritos</span></a>
+    </nav>
+    <div class="nav-group-title">Áreas</div>
+    <div data-areas></div>
+    <nav class="nav-group" style="margin-top:8px;">
+        <div class="nav-group-title" style="padding-top:0;">Geral</div>
+        <a class="nav-item" data-page="dashboards" href="dashboards.html"><span class="icon">📶</span><span class="nav-label">Dashboards</span></a>
         <a class="nav-item" data-page="sistemas" href="sistemas.html"><span class="icon">🧩</span><span class="nav-label">Sistemas</span></a>
         <a class="nav-item" data-page="documentos" href="documentos.html"><span class="icon">📁</span><span class="nav-label">Documentos</span></a>
         <a class="nav-item" data-page="comunicados" href="comunicados.html"><span class="icon">📣</span><span class="nav-label">Comunicados</span></a>
     </nav>
-    <nav class="nav-group">
-        <div class="nav-group-title">Conta</div>
-        <a class="nav-item" href="login.html"><span class="icon">🔐</span><span class="nav-label">Tela de login (mock)</span></a>
-    </nav>
     <div class="sidebar-footer">
-        <div class="avatar">MV</div>
-        <span>Max · Operacional</span>
+        <button class="collapse-toggle" aria-label="Recolher menu">⇤</button>
     </div>
 </aside>
 
 <main class="main">
     <div class="topbar">
-        <div class="breadcrumb"><strong>Documentos</strong></div>
-        <div class="search-box">Buscar no portal… <kbd>/</kbd></div>
+        <div class="breadcrumb">Documentos</div>
+        <div class="search-box">Buscar dashboards, sistemas, documentos… <kbd>/</kbd></div>
+        <button class="icon-btn" data-theme-toggle aria-label="Mudar tema">☀️</button>
+        <button class="icon-btn" aria-label="Notificações">🔔</button>
+        <div class="user-chip">
+            <div class="avatar">MV</div>
+            <span class="name">Max<span class="email">maxsander@livioeoutro.com.br</span></span>
+        </div>
     </div>
 
     <div class="content">
         <div class="page-header">
             <h1>Documentos</h1>
-            <p>O SharePoint é o repositório. O Nexus é o catálogo — não duplica arquivo algum.</p>
+            <p>Catálogo de documentos do SharePoint.</p>
         </div>
 
-        <div class="card-grid" id="doc-grid"></div>
+        <div class="filter-bar">
+            <button class="filter-chip active">Ver todos</button>
+        </div>
+
+        <div class="empty-state">
+            <div class="icon">📁</div>
+            <h3>Nenhum documento disponível ainda</h3>
+            <p>Quando houver documentos publicados para o seu papel, eles aparecem aqui.</p>
+        </div>
     </div>
 </main>
 </div>
 
 <script src="js/app.js"></script>
-<script>
-const storageLabel = {
-    sharepoint: 'SharePoint',
-    link_externo: 'Link externo',
-    interno: 'Upload interno',
-};
-
-(async function init() {
-    const grid = document.getElementById('doc-grid');
-    try {
-        const data = await Nexus.loadData('documentos.json');
-        grid.innerHTML = data.map((d, idx) => `
-            <div class="card" data-open="${idx}">
-                <div class="card-thumb">${d.icon}</div>
-                <div class="card-top-row">
-                    <div class="card-title">${d.title}</div>
-                </div>
-                <div class="card-desc">${d.description}</div>
-                <span class="license-chip">v${d.version} · ${storageLabel[d.storage_type]}</span>
-                <div class="card-meta">
-                    <span>${d.owner}</span>
-                    <span>${d.updated_at}</span>
-                </div>
-                ${d.storage_type === 'sharepoint'
-                    ? '<div class="doc-notice">O acesso a este documento é controlado pelo SharePoint. Seu login no L&amp;O Nexus não concede permissão.</div>'
-                    : ''}
-            </div>
-        `).join('');
-
-        grid.querySelectorAll('[data-open]').forEach(card => {
-            card.addEventListener('click', () => {
-                alert('Em um portal real, isto abriria ou baixaria o documento por uma rota autorizada. Nesta demonstração estática não há esse fluxo.');
-            });
-        });
-    } catch {
-        grid.innerHTML = '<div class="empty-state"><p>Não foi possível carregar os dados de demonstração.</p></div>';
-    }
-})();
-</script>
 </body>
 </html>

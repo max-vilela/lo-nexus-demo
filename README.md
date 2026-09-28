@@ -12,11 +12,16 @@ dados, controle de acesso por papel e integração com Power BI e SharePoint (ve
 
 Aqui você encontra:
 
-- Layout e identidade visual (paleta, tipografia, componentes) extraídos dos padrões de
-  desenvolvimento do projeto real;
+- Layout e identidade visual (paleta "boost neon", tema claro/escuro alternável,
+  tipografia, componentes) copiados de `resources/css/app.css` do app real;
+- Navegação por **Áreas** (grupos colapsáveis na barra lateral) + módulos gerais
+  (Dashboards, Sistemas, Documentos, Comunicados), replicando a estrutura real de navegação;
 - Telas de Visão Geral, Dashboards, Sistemas, Documentos e Comunicados, navegáveis;
-- Dados **fictícios**, carregados de arquivos JSON estáticos em `data/`;
-- Favoritos e estado do menu lateral persistidos apenas no `localStorage` do seu
+- Dados **fictícios** (prefixo `[DEMO]`), carregados de arquivos JSON estáticos em `data/`
+  — inspirados na estrutura real (categorias, tipos de integração, chips de status), mas com
+  nomes de sistemas e conteúdo de comunicados inventados, para não expor informação
+  operacional real em um repositório público;
+- Favoritos e estado do menu lateral/tema persistidos apenas no `localStorage` do seu
   navegador — conveniência de protótipo, não um recurso real do sistema;
 - Uma tela de login **puramente visual**, que não valida nem envia nenhuma credencial.
 

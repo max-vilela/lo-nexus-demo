@@ -1,47 +1,65 @@
 [
   {
-    "title": "[DEMO] CASE IH",
-    "description": "Portal do fabricante para diagnóstico e telemetria de máquinas agrícolas.",
-    "category": "Máquinas",
-    "status": "ativo",
+    "title": "[DEMO] Mapas da Propriedade",
+    "description": "Imagens de satélite e mapas das áreas cadastradas.",
+    "category": "Fazendas",
     "integration_type": "atalho_externo",
-    "owner": "Oficina Central",
-    "icon": "🔧"
+    "status": "ativo",
+    "icon": "🗺️",
+    "slug": "mapas-propriedade"
   },
   {
-    "title": "[DEMO] Sistema Fitossanitário",
-    "description": "Registro de aplicações e monitoramento fitossanitário por talhão.",
-    "category": "Agrícola",
-    "status": "ativo",
+    "title": "[DEMO] Escala de Turnos",
+    "description": "Consulta de escala e ponto dos times por fazenda.",
+    "category": "RH e Pessoas",
     "integration_type": "nova_aba",
-    "owner": "Equipe Agrícola",
-    "icon": "🌱"
+    "status": "ativo",
+    "icon": "🗓️",
+    "slug": "escala-turnos"
   },
   {
-    "title": "[DEMO] Google Earth",
-    "description": "Visualização geoespacial das áreas e talhões cadastrados.",
-    "category": "Geo",
-    "status": "ativo",
-    "integration_type": "nova_aba",
-    "owner": "Planejamento",
-    "icon": "🗺️"
-  },
-  {
-    "title": "[DEMO] Power BI Service",
-    "description": "Acesso direto ao ambiente de relatórios para usuários com licença própria.",
-    "category": "BI",
-    "status": "ativo",
+    "title": "[DEMO] Divisão de Custos por Unidade",
+    "description": "Rateio de custos operacionais entre unidades.",
+    "category": "Financeiro",
     "integration_type": "atalho_externo",
-    "owner": "TI",
-    "icon": "📊"
+    "status": "ativo",
+    "icon": "📈",
+    "slug": "divisao-custos"
   },
   {
-    "title": "[DEMO] Gestão de Pátio",
-    "description": "Fila de caminhões e status de carregamento em tempo real.",
-    "category": "Logística",
-    "status": "manutencao",
+    "title": "[DEMO] Contratos de Arrendamento",
+    "description": "Consulta de contratos vigentes e datas de renovação.",
+    "category": "Contratos",
     "integration_type": "pendente",
-    "owner": "Logística",
-    "icon": "🚛"
+    "status": "ativo",
+    "icon": "📑",
+    "slug": "contratos-arrendamento"
+  },
+  {
+    "title": "[DEMO] Chamados de Manutenção",
+    "description": "Abertura e acompanhamento de chamados técnicos de maquinário.",
+    "category": "Operações",
+    "integration_type": "pendente",
+    "status": "manutencao",
+    "icon": "🛠️",
+    "slug": "chamados-manutencao"
+  },
+  {
+    "title": "[DEMO] Pedidos de Compra",
+    "description": "Acompanhamento de pedidos e entregas de insumos.",
+    "category": "Suprimentos e Compras",
+    "integration_type": "nova_aba",
+    "status": "ativo",
+    "icon": "📦",
+    "slug": "pedidos-compra"
+  },
+  {
+    "title": "[DEMO] Portal de Relatórios BI",
+    "description": "Indicadores gerenciais consolidados por área.",
+    "category": "Diretoria Executiva",
+    "integration_type": "atalho_externo",
+    "status": "ativo",
+    "icon": "📊",
+    "slug": "portal-relatorios-bi"
   }
 ]

@@ -1,0 +1,65 @@
+[
+  {
+    "name": "Fazendas",
+    "icon": "🌾",
+    "items": [
+      { "category": "Sistemas", "links": [
+        { "title": "Mapas da Propriedade", "type": "sistema", "slug": "mapas-propriedade", "icon": "🗺️" }
+      ] }
+    ]
+  },
+  {
+    "name": "RH e Pessoas",
+    "icon": "👥",
+    "items": [
+      { "category": "Sistemas", "links": [
+        { "title": "Escala de Turnos", "type": "sistema", "slug": "escala-turnos", "icon": "🗓️" }
+      ] }
+    ]
+  },
+  {
+    "name": "Financeiro",
+    "icon": "💰",
+    "items": [
+      { "category": "Custos", "links": [
+        { "title": "Divisão de Custos por Unidade", "type": "sistema", "slug": "divisao-custos", "icon": "📈" }
+      ] }
+    ]
+  },
+  {
+    "name": "Contratos",
+    "icon": "📑",
+    "items": [
+      { "category": "Sistemas", "links": [
+        { "title": "Contratos de Arrendamento", "type": "sistema", "slug": "contratos-arrendamento", "icon": "📑" }
+      ] }
+    ]
+  },
+  {
+    "name": "Operações",
+    "icon": "⚙️",
+    "items": [
+      { "category": "Manutenção", "links": [
+        { "title": "Chamados de Manutenção", "type": "sistema", "slug": "chamados-manutencao", "icon": "🛠️" }
+      ] }
+    ]
+  },
+  {
+    "name": "Suprimentos e Compras",
+    "icon": "📦",
+    "items": [
+      { "category": "Sistemas", "links": [
+        { "title": "Pedidos de Compra", "type": "sistema", "slug": "pedidos-compra", "icon": "📦" }
+      ] }
+    ]
+  },
+  {
+    "name": "Diretoria Executiva",
+    "icon": "💼",
+    "items": [
+      { "category": "Indicadores", "links": [
+        { "title": "Portal de Relatórios BI", "type": "sistema", "slug": "portal-relatorios-bi", "icon": "📊" }
+      ] }
+    ]
+  }
+]
